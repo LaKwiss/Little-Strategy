@@ -29,14 +29,9 @@ class UserListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool checkIfUserExists(String username) {
-    return _state.users
-        .any((User user) => user.id == findUserIdByUsername(username));
-  }
-
-  User findUserById(String id) {
-    return _state.users.firstWhere((User user) => user.id == id);
-  }
+  // bool checkIfUserExists(String username) {
+  //   return _state.users.any((User user) => user.id == findUserIdByUsername(username));
+  // }
 
   void deleteUser(String id) {
     final newUsers = _state.users.where((User user) => user.id != id).toList();
@@ -49,7 +44,27 @@ class UserListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String findUserIdByUsername(String username) {
-    return _state.users.firstWhere((User user) => user.username == username).id;
+  String? findUserIdByUsername(String username) {
+    try {
+      return _state.users.firstWhere((User user) => user.username == username).id;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  User? findUserByUsername(String username) {
+    try {
+      return _state.users.firstWhere((User user) => user.username == username);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  User? findUserById(String id) {
+    try {
+      return _state.users.firstWhere((User user) => user.id == id);
+    } catch (e) {
+      return null;
+    }
   }
 }

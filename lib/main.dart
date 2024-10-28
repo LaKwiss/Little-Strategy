@@ -25,7 +25,14 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
           useMaterial3: true,
-          appBarTheme: AppBarTheme.of(context).copyWith(color: Colors.blue),
+          appBarTheme: AppBarTheme.of(context).copyWith(
+            color: Colors.blue,
+            iconTheme: const IconThemeData(color: Colors.white),
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+            ),
+          ),
         ),
         title: 'Little Strategy Game',
         routes: {
