@@ -11,6 +11,7 @@ class UserListProvider with ChangeNotifier {
   void addUser(User user) {
     _state = _state.copyWith(users: [..._state.users, user]);
     notifyListeners();
+    print(user);
   }
 
   void updateUser(User updatedUser) {

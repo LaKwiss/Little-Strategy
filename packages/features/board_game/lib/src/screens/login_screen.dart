@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     _formKey.currentState?.save();
-    // Navigator.of(context).pushNamed('/game');
+    Navigator.of(context).pushNamed('/game');
   }
 
   @override

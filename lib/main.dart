@@ -29,8 +29,8 @@ class MainApp extends StatelessWidget {
         ),
         title: 'Little Strategy Game',
         routes: {
-          // '/': (context) => const BoardRunning(),
           '/': (context) => const LoginScreen(),
+          '/game': (context) => const BoardRunning(),
         },
       ),
     );
