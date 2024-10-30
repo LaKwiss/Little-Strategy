@@ -12,6 +12,8 @@ dependencies:
   provider: ^6.1.2
   board_game:
     path: packages/features/board_game
+  hive: ^2.2.3
+  build_runner: ^2.4.13
 
 dev_dependencies:
   flutter_test:
