@@ -1,4 +1,5 @@
 import 'package:domain_entities/domain_entities.dart';
+import 'package:flutter/foundation.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 
 class UserLocalStorage {
@@ -11,12 +12,10 @@ class UserLocalStorage {
   Future<void> addUser(User u) async {
     await keyValueStorage.userBox.then((box) {
       box.clear();
-    });
-    await keyValueStorage.userBox.then((box) {
       box.put(userNode, UserLm(username: u.username, password: u.password));
-    });
-    await keyValueStorage.userBox.then((box) {
-      print(box.get(userNode));
+      if (kDebugMode) {
+        print(box.get(userNode));
+      }
     });
   }
 
