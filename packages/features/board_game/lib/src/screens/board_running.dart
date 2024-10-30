@@ -1,4 +1,4 @@
-import 'package:board_game/src/providers/cell_list_provider.dart';
+import 'package:board_game/board_game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +12,11 @@ class BoardRunning extends StatefulWidget {
 class _BoardRunningState extends State<BoardRunning> {
   @override
   Widget build(BuildContext context) {
+    final user = context.read<UserProvider>().state.user;
+    if (user == null) {
+      Future.microtask(() => Navigator.of(context).pushNamed('/'));
+    }
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -45,7 +50,7 @@ class _BoardRunningState extends State<BoardRunning> {
       ),
       body: Center(
         child: Text(
-          context.watch<CellListProvider>().state.cells.length.toString(),
+          user.toString(),
         ),
       ),
     );

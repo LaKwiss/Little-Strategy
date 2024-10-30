@@ -1,5 +1,6 @@
 import 'package:domain_entities/domain_entities.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -18,6 +19,10 @@ class UserProvider with ChangeNotifier {
     _state = _state.copyWith(user: user);
 
     await repository.addUser(user);
+
+    if (kDebugMode) {
+      print(_state.toString());
+    }
 
     notifyListeners();
   }
