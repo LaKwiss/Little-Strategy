@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-Uuid _uuid = Uuid();
+Uuid _uuid = const Uuid();
 
 class User extends Equatable {
   User({

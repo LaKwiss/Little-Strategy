@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
 part 'user_lm.g.dart';
 
 @HiveType(typeId: 0)
-class UserLm {
-  UserLm({
+class UserLm extends Equatable {
+  const UserLm({
     required this.username,
     required this.password,
   });
@@ -18,4 +19,10 @@ class UserLm {
         username: json['username'],
         password: json['password'],
       );
+
+  @override
+  List<Object?> get props => [username, password];
+
+  @override
+  bool? get stringify => true;
 }

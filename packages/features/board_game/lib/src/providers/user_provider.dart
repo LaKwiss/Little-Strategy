@@ -1,17 +1,25 @@
 import 'package:domain_entities/domain_entities.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:user_repository/user_repository.dart';
 
-part 'user_list_state.dart';
+part 'user_state.dart';
 
-class UserListProvider with ChangeNotifier {
-  UserListState _state = UserListState.initial();
-  UserListState get state => _state;
+class UserProvider with ChangeNotifier {
+  UserState _state = UserState.initial();
+  UserState get state => _state;
 
-  void addUser(User user) {
+  UserProvider({required this.repository});
+
+  final UserRepository repository;
+
+  void addUser(User user) async {
     _state = _state.copyWith(users: [..._state.users, user]);
+    _state = _state.copyWith(user: user);
+
+    await repository.addUser(user);
+
     notifyListeners();
-    print(user);
   }
 
   void updateUser(User updatedUser) {
@@ -46,7 +54,9 @@ class UserListProvider with ChangeNotifier {
 
   String? findUserIdByUsername(String username) {
     try {
-      return _state.users.firstWhere((User user) => user.username == username).id;
+      return _state.users
+          .firstWhere((User user) => user.username == username)
+          .id;
     } catch (e) {
       return null;
     }

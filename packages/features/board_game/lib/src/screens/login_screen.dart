@@ -1,4 +1,4 @@
-import 'package:board_game/src/providers/user_list_provider.dart';
+import 'package:board_game/src/providers/user_provider.dart';
 import 'package:domain_entities/domain_entities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  User? previousUser;
+
   late final TextEditingController _usernameEditingController;
   late final TextEditingController _passwordController;
 
@@ -20,24 +22,26 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordFocusNode = FocusNode();
 
   void _onLogin() {
-    if (_usernameEditingController.text.isEmpty || _passwordController.text.isEmpty) {
+    if (_usernameEditingController.text.isEmpty ||
+        _passwordController.text.isEmpty) {
       return;
     }
 
-    userExists =
-        context.read<UserListProvider>().findUserByUsername(_usernameEditingController.text) !=
-            null;
+    userExists = context
+            .read<UserProvider>()
+            .findUserByUsername(_usernameEditingController.text) !=
+        null;
 
     if (!userExists) {
-      context.read<UserListProvider>().addUser(
-            User(
-              username: _usernameEditingController.text,
-              password: _passwordController.text,
-            ),
-          );
+      final User user = User(
+        username: _usernameEditingController.text,
+        password: _passwordController.text,
+      );
+      context.read<UserProvider>().addUser(user);
     } else {
-      final User? user =
-          context.read<UserListProvider>().findUserByUsername(_usernameEditingController.text);
+      final User? user = context
+          .read<UserProvider>()
+          .findUserByUsername(_usernameEditingController.text);
       if (user == null) {
         return;
       }
@@ -67,6 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (context.read<UserProvider>().state.user != null) {
+      previousUser = context.read<UserProvider>().state.user;
+
+      _usernameEditingController.text = previousUser!.username;
+      _passwordController.text = previousUser!.password;
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(400),

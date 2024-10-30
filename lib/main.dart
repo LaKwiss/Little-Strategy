@@ -1,6 +1,8 @@
 import 'package:board_game/board_game.dart';
 import 'package:flutter/material.dart';
+import 'package:key_value_storage/key_value_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:user_repository/user_repository.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,11 +15,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider(
+            create: (context) =>
+                UserRepository(keyValueStorage: KeyValueStorage())),
         ChangeNotifierProvider(
           create: (context) => CellListProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => UserListProvider(),
+          create: (context) =>
+              UserProvider(repository: context.read<UserRepository>()),
         ),
       ],
       child: MaterialApp(

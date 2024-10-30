@@ -14,6 +14,10 @@ dependencies:
     path: packages/features/board_game
   hive: ^2.2.3
   build_runner: ^2.4.13
+  user_repository:
+    path: packages/user_repository
+  key_value_storage:
+    path: packages/key_value_storage
 
 dev_dependencies:
   flutter_test:

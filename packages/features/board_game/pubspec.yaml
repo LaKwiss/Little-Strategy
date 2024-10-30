@@ -12,6 +12,12 @@ dependencies:
     path: ../../domain_entities
   provider: ^6.1.2
   intl: ^0.19.0
+  user_repository:
+    path: ../../user_repository
+  key_value_storage:
+    path: ../../key_value_storage
+  
+
 
 dev_dependencies:
   flutter_test:

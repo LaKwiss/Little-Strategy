@@ -1,14 +1,17 @@
-part of 'user_list_provider.dart';
+part of 'user_provider.dart';
 
-class UserListState extends Equatable {
-  const UserListState({
+class UserState extends Equatable {
+  const UserState({
     required this.users,
+    this.user,
   });
 
   final List<User> users;
+  final User? user;
 
-  factory UserListState.initial() {
-    return UserListState(
+  factory UserState.initial() {
+    return UserState(
+      user: null,
       users: [
         User(
           username: 'User1',
@@ -29,9 +32,10 @@ class UserListState extends Equatable {
   @override
   List<Object?> get props => [users];
 
-  UserListState copyWith({List<User>? users}) {
-    return UserListState(
+  UserState copyWith({User? user, List<User>? users}) {
+    return UserState(
       users: users ?? this.users,
+      user: user ?? this.user,
     );
   }
 
